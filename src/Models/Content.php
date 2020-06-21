@@ -35,7 +35,7 @@ class Content extends Model
 
     public function article()
     {
-        return $this->belongsTo('App\Models\Article', 'article_id');
+        return $this->belongsTo(config('content-manager.article_model'), 'article_id');
     }
 
     /*

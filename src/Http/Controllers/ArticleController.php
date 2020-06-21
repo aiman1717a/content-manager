@@ -13,7 +13,7 @@ class ArticleController extends Controller
     {
         try{
             $model = $request->input('model');
-            $this->model = app('\\' . $model);
+            $this->model = app($model);
 
             return response()->json([
                 'status' => true,

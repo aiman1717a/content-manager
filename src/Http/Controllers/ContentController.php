@@ -18,7 +18,7 @@ class ContentController extends Controller
             $model = $request->input('model');
             $order = $request->input('order');
             $type = $request->input('type');
-            $this->model = app('\\' . $model);
+            $this->model = app($model);
 
             $this->model->query()->create([
                 'order' => $order,
@@ -41,7 +41,7 @@ class ContentController extends Controller
         try{
             $model = $request->input('model');
             $type = $request->input('type');
-            $this->model = app('\\' . $model);
+            $this->model = app($model);
 
             return response()->json([
                 'status' => true,
@@ -61,7 +61,7 @@ class ContentController extends Controller
         try{
             $model = $request->input('model');
             $content = $request->input('content');
-            $this->model = app('\\' . $model);
+            $this->model = app($model);
 
             $this->model->query()->where('id', $content['id'])->update([
                 'type' => $content['type'],
@@ -85,7 +85,7 @@ class ContentController extends Controller
         try{
             $model = $request->input('model');
             $contents = $request->input('contents');
-            $this->model = app('\\' . $model);
+            $this->model = app( $model);
 
             $count = 1;
             foreach ($contents as $content){
@@ -116,7 +116,7 @@ class ContentController extends Controller
         try{
             $model = $request->input('model');
             $id = $request->input('id');
-            $this->model = app('\\' . $model);
+            $this->model = app($model);
 
             $this->model->query()->where('id', intval($id))->delete();
             return response()->json([
