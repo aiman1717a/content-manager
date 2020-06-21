@@ -10,11 +10,56 @@ You can install the package in to a Laravel app that uses [Nova](https://nova.la
 composer require aiman/content-manager
 ```
 
+**Configuration File is a Required**
 Then you should publish the service provider, migrate database:
 
 ```bash
 php artisan vendor:publish --provider="Aiman\ContentManager\ToolServiceProvider"
 php artisan migrate
+```
+
+### Article Schema
+Example Article Schema Used in the package. Content Manager will use a display name to display the article list. So make sure to set it in `article_display_name` the configuration file
+```
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateArticlesTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('articles', function (Blueprint $table) {
+            $table->id();
+            $table->string('headline')->nullable();
+            $table->string('sub_headline')->nullable();
+            $table->text('body')->nullable();
+            $table->string('status')->nullable();
+            $table->string('thumbnail')->nullable();
+            $table->string('caption')->nullable();
+            $table->boolean('anonymous')->default(false);
+            $table->json('social_media')->nullable();
+            $table->integer('reviewing_by')->nullable();
+            $table->dateTime('reviewing_start')->nullable();
+            $table->integer('reviewed_by')->nullable();
+            $table->integer('created_by')->nullable();
+            $table->integer('updated_by')->nullable();
+            $table->timestamps();
+            $table->softDeletes();
+        });
+    }
+    public function down()
+    {
+        Schema::dropIfExists('articles');
+    }
+}
 ```
 
 ## Usage
@@ -55,6 +100,7 @@ return [
     */
 
     'article_model' => \App\Models\Article::class,
+    'article_display_name' => 'headline',
     'content_model' => \Aiman\ContentManager\Http\Models\Content::class,
     'storage_url' => env('SPACES') //storagel path used for showing content images
 ];
