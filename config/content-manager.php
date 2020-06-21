@@ -12,6 +12,7 @@ return [
     */
 
     'article_model' => \App\Models\Article::class,
+    'article_display_name' => 'headline',
     'content_model' => \Aiman\ContentManager\Http\Models\Content::class,
     'storage_url' => env('SPACES')
 ];

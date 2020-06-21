@@ -30,7 +30,7 @@
                 <template v-if="contentState.status">
                     <template v-if="contentState.id === content.id">
                         <select class="block appearance-none w-full bg-white border border-70 text-80 py-3 px-4 pr-8 rounded mb-4 rtl" id="grid-state" v-model="contentState.article_id">
-                            <option v-for="article in articles" v-bind:value="article.id">{{article.headline}}</option>
+                            <option v-for="article in articles" v-bind:value="article.id">{{article[article_display_name]}}</option>
                         </select>
                         <button class="btn btn-default btn-primary float-right ml-4" @click="updateContent(contentState)">
                             Save
@@ -86,7 +86,6 @@
         data() {
             return {
                 articles: [],
-                temp: 1,
                 contentState: {
                     id: null,
                     status: false,
@@ -99,6 +98,9 @@
         computed: {
             storageUrl: function () {
                 return Nova.config.content_manager.storage_url;
+            },
+            article_display_name: function () {
+                return Nova.config.content_manager.article_display_name;
             }
         },
         methods: {

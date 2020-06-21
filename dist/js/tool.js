@@ -18539,7 +18539,6 @@ __WEBPACK_IMPORTED_MODULE_3__fortawesome_fontawesome_svg_core__["c" /* library *
     data: function data() {
         return {
             articles: [],
-            temp: 1,
             contentState: {
                 id: null,
                 status: false,
@@ -18553,6 +18552,9 @@ __WEBPACK_IMPORTED_MODULE_3__fortawesome_fontawesome_svg_core__["c" /* library *
     computed: {
         storageUrl: function storageUrl() {
             return Nova.config.content_manager.storage_url;
+        },
+        article_display_name: function article_display_name() {
+            return Nova.config.content_manager.article_display_name;
         }
     },
     methods: {
@@ -18824,7 +18826,11 @@ var render = function() {
                                 return _c(
                                   "option",
                                   { domProps: { value: article.id } },
-                                  [_vm._v(_vm._s(article.headline))]
+                                  [
+                                    _vm._v(
+                                      _vm._s(article[_vm.article_display_name])
+                                    )
+                                  ]
                                 )
                               }),
                               0
