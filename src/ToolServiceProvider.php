@@ -53,7 +53,11 @@ class ToolServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $this->mergeConfigFrom(__DIR__.'/../config/content-manager.php', 'model');
+        try {
+            $this->mergeConfigFrom(__DIR__.'/../config/content-manager.php', 'content-manager');
+        } catch (\Exception $exception){
+
+        }
     }
 
     /**
