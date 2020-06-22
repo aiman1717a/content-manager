@@ -18,13 +18,13 @@
                     </div>
                 </div>
                 <template v-if="content.article !== null">
-                    <img :src="storageUrl + content.article.thumbnail" alt="Image Not Found">
-                    <a :href="content.article.slug">
+                    <img :src="content.article.thumbnail" alt="Image Not Found">
+                    <a :href="content.article.topic.slug + '/' + content.article.id">
                         <h3 class="text-90 font-normal text-2xl rtl mb-3"> {{content.article.headline}}</h3>
                     </a>
                 </template>
                 <template v-else>
-                    <img :src="storageUrl + 'image_holder.png'" alt="Image Not Found">
+                    <img :src="storageUrl + '/image_holder.png'" alt="Image Not Found">
                 </template>
 
                 <template v-if="contentState.status">

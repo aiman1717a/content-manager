@@ -18716,25 +18716,37 @@ var render = function() {
                   ? [
                       _c("img", {
                         attrs: {
-                          src: _vm.storageUrl + content.article.thumbnail,
+                          src: content.article.thumbnail,
                           alt: "Image Not Found"
                         }
                       }),
                       _vm._v(" "),
-                      _c("a", { attrs: { href: content.article.slug } }, [
-                        _c(
-                          "h3",
-                          {
-                            staticClass: "text-90 font-normal text-2xl rtl mb-3"
-                          },
-                          [_vm._v(" " + _vm._s(content.article.headline))]
-                        )
-                      ])
+                      _c(
+                        "a",
+                        {
+                          attrs: {
+                            href:
+                              content.article.topic.slug +
+                              "/" +
+                              content.article.id
+                          }
+                        },
+                        [
+                          _c(
+                            "h3",
+                            {
+                              staticClass:
+                                "text-90 font-normal text-2xl rtl mb-3"
+                            },
+                            [_vm._v(" " + _vm._s(content.article.headline))]
+                          )
+                        ]
+                      )
                     ]
                   : [
                       _c("img", {
                         attrs: {
-                          src: _vm.storageUrl + "image_holder.png",
+                          src: _vm.storageUrl + "/image_holder.png",
                           alt: "Image Not Found"
                         }
                       })
