@@ -3332,7 +3332,10 @@ __WEBPACK_IMPORTED_MODULE_3__fortawesome_fontawesome_svg_core__["c" /* library *
             return Nova.config.content_manager.storage_url;
         },
         article_display_name: function article_display_name() {
-            return Nova.config.content_manager.article_display_name;
+            return Nova.config.content_manager.article.display_name;
+        },
+        article_thumbnail: function article_thumbnail() {
+            return Nova.config.content_manager.article.thumbnail;
         }
     },
     methods: {
@@ -18716,7 +18719,7 @@ var render = function() {
                   ? [
                       _c("img", {
                         attrs: {
-                          src: content.article.thumbnail,
+                          src: content.article[_vm.article_thumbnail],
                           alt: "Image Not Found"
                         }
                       }),

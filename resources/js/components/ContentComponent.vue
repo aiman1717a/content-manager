@@ -18,7 +18,7 @@
                     </div>
                 </div>
                 <template v-if="content.article !== null">
-                    <img :src="content.article.thumbnail" alt="Image Not Found">
+                    <img :src="content.article[article_thumbnail]" alt="Image Not Found">
                     <a :href="content.article.topic.slug + '/' + content.article.id">
                         <h3 class="text-90 font-normal text-2xl rtl mb-3"> {{content.article.headline}}</h3>
                     </a>
@@ -100,7 +100,10 @@
                 return Nova.config.content_manager.storage_url;
             },
             article_display_name: function () {
-                return Nova.config.content_manager.article_display_name;
+                return Nova.config.content_manager.article.display_name;
+            },
+            article_thumbnail: function () {
+                return Nova.config.content_manager.article.thumbnail;
             }
         },
         methods: {
