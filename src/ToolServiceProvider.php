@@ -40,7 +40,7 @@ class ToolServiceProvider extends ServiceProvider
     private function publishMigrations()
     {
         $this->publishes([
-            __DIR__.'/Http/Migrations/create_contents_table.php.stub' => database_path('migrations/'.date('Y_m_d_His', time()).'create_contents_table.php'),
+            __DIR__.'/Http/Migrations/create_contents_table.php' => database_path('migrations/'.date('Y_m_d_His', time()).'_create_contents_table.php'),
         ], 'content-manager-migration');
     }
 

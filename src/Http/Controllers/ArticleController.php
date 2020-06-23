@@ -15,10 +15,11 @@ class ArticleController extends Controller
             $model = $request->input('model');
             $this->model = app($model);
 
+            $articles = $this->model->where('status', 'PUBLISHED')->get();
             return response()->json([
                 'status' => true,
                 'message' => 'Articles Fetched',
-                'data' => $this->model->all()
+                'data' => $articles
             ]);
         }catch (\Exception $exception) {
             return response()->json([

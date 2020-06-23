@@ -2,31 +2,30 @@
 namespace Aiman\ContentManager\Http\Controllers;
 
 
-use Aiman\ContentManager\Http\Models\Content;
+use Aiman\ContentManager\Http\Models\ContentPanel;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Log;
 use Laravel\Nova\Http\Requests\NovaRequest;
 
-class ContentController extends Controller
+class ContentPanelController extends Controller
 {
-    protected $model;
 
     public function create(NovaRequest $request)
     {
         try{
-            $model = $request->input('model');
+            $name = $request->input('name');
+            $status = $request->input('status');
             $order = $request->input('order');
-            $panel_id = $request->input('panel_id');
-            $this->model = app($model);
 
-            $this->model->query()->create([
+            ContentPanel::query()->create([
+                'name' => $name,
+                'status' => $status,
                 'order' => $order,
-                'panel_id' => $panel_id
             ]);
             return response()->json([
                 'status' => true,
-                'message' => 'Content Created',
+                'message' => 'Panel Created',
             ]);
         }catch (\Exception $exception) {
             return response()->json([
@@ -39,16 +38,12 @@ class ContentController extends Controller
     public function reads(NovaRequest $request)
     {
         try{
-            $model = $request->input('model');
-            $panel_id = $request->input('panel_id');
-            $this->model = app($model);
-
-            $contents = $this->model->where('panel_id', $panel_id)->orderBy('order')->get();
+            $content_panels = ContentPanel::query()->orderBy('order')->get();
 
             return response()->json([
                 'status' => true,
-                'message' => 'Contents Fetched',
-                'data' => $contents,
+                'message' => 'Panels Fetched',
+                'data' => $content_panels,
             ]);
         }catch (\Exception $exception) {
             return response()->json([
@@ -58,20 +53,38 @@ class ContentController extends Controller
         }
     }
 
-    public function update(NovaRequest $request)
+    public function updateStatus(NovaRequest $request)
     {
-        try{
-            $model = $request->input('model');
-            $content = $request->input('content');
-            $this->model = app($model);
-
-            $this->model->query()->where('id', $content['id'])->update([
-                'panel_id' => $content['panel_id'],
-                'article_id' => $content['article_id'],
+        try {
+            $panel_id = $request->input('panel_id');
+            $status = $request->input('status');
+            ContentPanel::query()->where('id', $panel_id)->update([
+                'status' => $status,
             ]);
             return response()->json([
                 'status' => true,
-                'message' => 'Content updated'
+                'message' => 'Panel Status updated'
+            ]);
+        } catch (\Exception $exception) {
+            return response()->json([
+                'status' => false,
+                'message' => $exception->getMessage()
+            ]);
+        }
+    }
+
+    public function updateName(NovaRequest $request)
+    {
+        try{
+            $panel_id = $request->input('panel_id');
+            $name = $request->input('name');
+
+            ContentPanel::query()->where('id', $panel_id)->update([
+                'name' => $name,
+            ]);
+            return response()->json([
+                'status' => true,
+                'message' => 'Panel Name updated'
             ]);
         }catch (\Exception $exception) {
             return response()->json([
@@ -85,24 +98,20 @@ class ContentController extends Controller
     public function updateSort(NovaRequest $request)
     {
         try{
-            $model = $request->input('model');
-            $contents = $request->input('contents');
-            $this->model = app( $model);
+            $panels = $request->input('panels');
 
             $count = 1;
-            foreach ($contents as $content){
-                $this->model->query()->updateOrCreate([
-                    'id' => $content['id']
+            foreach ($panels as $panel){
+                ContentPanel::query()->updateOrCreate([
+                    'id' => $panel['id']
                 ],[
                     'order' => $count,
-                    'panel_id' => $content['panel_id'],
-                    'article_id' => $content['article_id'],
                 ]);
                 $count++;
             }
             return response()->json([
                 'status' => true,
-                'message' => 'Content Sorted'
+                'message' => 'Panel Sorted'
             ]);
         }catch (\Exception $exception) {
             return response()->json([
@@ -112,18 +121,14 @@ class ContentController extends Controller
         }
 
     }
-
-    public function delete(NovaRequest $request)
+//
+    public function delete($panel_id)
     {
         try{
-            $model = $request->input('model');
-            $id = $request->input('id');
-            $this->model = app($model);
-
-            $this->model->query()->where('id', intval($id))->delete();
+            ContentPanel::query()->where('id', intval($panel_id))->delete();
             return response()->json([
                 'status' => true,
-                'message' => 'Content Deleted',
+                'message' => 'Panel Deleted',
             ]);
         }catch (\Exception $exception) {
             return response()->json([

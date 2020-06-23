@@ -2,6 +2,7 @@
 
 use Aiman\ContentManager\Http\Controllers\ArticleController;
 use Aiman\ContentManager\Http\Controllers\ContentController;
+use Aiman\ContentManager\Http\Controllers\ContentPanelController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -15,6 +16,18 @@ use Illuminate\Support\Facades\Route;
 | by your tool's "Authorize" middleware by default. Now, go build!
 |
 */
+
+Route::group([
+    'prefix' => 'panel'
+], function ($router) {
+    Route::post('all', [ContentPanelController::class, 'reads']);
+    Route::post('', [ContentPanelController::class, 'create']);
+    Route::put('', [ContentPanelController::class, 'update']);
+    Route::put('status', [ContentPanelController::class, 'updateStatus']);
+    Route::put('update-sort', [ContentPanelController::class, 'updateSort']);
+    Route::put('name', [ContentPanelController::class, 'updateName']);
+    Route::delete('{panel_id}', [ContentPanelController::class, 'delete']);
+});
 
 Route::group([
     'prefix' => 'content'
