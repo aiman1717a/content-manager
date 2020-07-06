@@ -18791,6 +18791,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -20628,31 +20630,36 @@ var render = function() {
                                 }
                               }),
                               _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  attrs: {
-                                    href:
-                                      content.article.topic.slug +
-                                      "/" +
-                                      content.article.id
-                                  }
-                                },
-                                [
-                                  _c(
-                                    "h3",
-                                    {
-                                      staticClass:
-                                        "text-90 font-normal text-2xl rtl mb-3"
-                                    },
-                                    [
-                                      _vm._v(
-                                        " " + _vm._s(content.article.headline)
-                                      )
-                                    ]
-                                  )
-                                ]
-                              )
+                              content.article.topic != null
+                                ? _c("tempalte", [
+                                    _c(
+                                      "a",
+                                      {
+                                        attrs: {
+                                          href:
+                                            content.article.topic.slug +
+                                            "/" +
+                                            content.article.id
+                                        }
+                                      },
+                                      [
+                                        _c(
+                                          "h3",
+                                          {
+                                            staticClass:
+                                              "text-90 font-normal text-2xl rtl mb-3"
+                                          },
+                                          [
+                                            _vm._v(
+                                              " " +
+                                                _vm._s(content.article.headline)
+                                            )
+                                          ]
+                                        )
+                                      ]
+                                    )
+                                  ])
+                                : _vm._e()
                             ]
                           : [
                               _c("img", {
