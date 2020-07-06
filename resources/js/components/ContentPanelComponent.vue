@@ -34,9 +34,11 @@
                         </div>
                         <template v-if="content.article !== null">
                             <img :src="content.article[article_thumbnail]" alt="Image Not Found">
-                            <a :href="content.article.topic.slug + '/' + content.article.id">
-                                <h3 class="text-90 font-normal text-2xl rtl mb-3"> {{content.article.headline}}</h3>
-                            </a>
+                            <tempalte v-if="content.article.topic != null">
+                                <a :href="content.article.topic.slug + '/' + content.article.id">
+                                    <h3 class="text-90 font-normal text-2xl rtl mb-3"> {{content.article.headline}}</h3>
+                                </a>
+                            </tempalte>
                         </template>
                         <template v-else>
                             <img :src="storageUrl + '/image_holder.png'" alt="Image Not Found">
